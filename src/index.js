@@ -8,24 +8,32 @@ import MoviePage from './pages/movieDetailsPage'
 import { BrowserRouter, Route, Redirect, Switch, Link } from "react-router-dom"    // CHANGED
 import FavoriteMoviesPage from './pages/favoritesMoviesPage'       // NEW
 import MovieReviewPage from "./pages/movieReviewPage";
+import SiteHeader from './components/siteHeader'
+
+// const App = () => {
+//   return (
+//     <BrowserRouter>
+//     <div className="jumbotron">
+//       <div className="container-fluid">
+//         <ul className="navbar-nav text-black">
+//           <li className="nav-item">
+//             <Link className="nav-link " to="/">
+//               Home
+//             </Link>
+//           </li>
+//           <li className="nav-item">
+//             <Link className="nav-link " to="/movies/favorites">
+//               Favorites
+//             </Link>
+//           </li>
+//         </ul>
 
 const App = () => {
   return (
-    <BrowserRouter>
-    <div className="jumbotron">
-      <div className="container-fluid">
-        <ul className="navbar-nav text-black">
-          <li className="nav-item">
-            <Link className="nav-link " to="/">
-              Home
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link " to="/movies/favorites">
-              Favorites
-            </Link>
-          </li>
-        </ul>
+      <BrowserRouter>
+        <div className="jumbotron">
+          <SiteHeader />      {/* New Header  */}
+          <div className="container-fluid">
         <Switch>
           <Route path="/reviews/:id" component={MovieReviewPage} />
           <Route exact path="/movies/favorites" component={FavoriteMoviesPage} />
