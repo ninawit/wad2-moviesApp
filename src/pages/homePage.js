@@ -8,6 +8,9 @@ import FilterControls from "../components/filterControls";
 //   return (
 
   const MovieListPage = () => {
+    const [titleFilter, setTitleFilter] = useState("");       // NEW
+    const [genreFilter, setGenreFilter] = useState("0");      // NEW
+
     const [movies, setMovies] = useState([]);
     useEffect(() => {
       fetch(
@@ -22,13 +25,36 @@ import FilterControls from "../components/filterControls";
           setMovies(movies);
         });
     }, []);
-    return (
+
+    // NEW BLOCK START
+  const genre = Number(genreFilter)
+  let displayedMovies = movies
+    .filter(m => {
+      return m.title.toLowerCase().search(titleFilter.toLowerCase()) !== -1;
+    })
+    .filter(m => {
+      return genre > 0 ? m.genre_ids.includes(Number(genreFilter)) : true;
+    });
+
+  const handleFilterChange = (type, value) => {
+    if (type === "name") setTitleFilter(value);
+    else setGenreFilter(value);
+  };
+  // NEW BLOCK END
+  return (
     <>
-      <Header numMovies={movies.length} />
-      <FilterControls />
-      <MovieList movies={movies} />
+      <Header numMovies={displayedMovies.length} />          {/* CHANGED */}
+      <FilterControls onUserInput={handleFilterChange} />    {/* CHANGED */}
+      <MovieList movies={displayedMovies} />                  {/* CHANGED */}
     </>
   );
+  //   return (
+  //   <>
+  //     <Header numMovies={movies.length} />
+  //     <FilterControls />
+  //     <MovieList movies={movies} />
+  //   </>
+  // );
 };
 
 export default MovieListPage;
